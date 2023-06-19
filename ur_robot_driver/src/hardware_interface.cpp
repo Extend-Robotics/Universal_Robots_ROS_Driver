@@ -160,7 +160,7 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
 
   // Specify gain for servoing to position in joint space.
   // A higher gain can sharpen the trajectory.
-  int servoj_gain = robot_hw_nh.param("servoj_gain", 2000);
+  int servoj_gain = robot_hw_nh.param("servoj_gain", 100);
   if ((servoj_gain > 2000) || (servoj_gain < 100))
   {
     ROS_ERROR_STREAM("servoj_gain is " << servoj_gain << ", must be in range [100, 2000]");
@@ -169,7 +169,7 @@ bool HardwareInterface::init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw
 
   // Specify lookahead time for servoing to position in joint space.
   // A longer lookahead time can smooth the trajectory.
-  double servoj_lookahead_time = robot_hw_nh.param("servoj_lookahead_time", 0.03);
+  double servoj_lookahead_time = robot_hw_nh.param("servoj_lookahead_time", 0.05);
   if ((servoj_lookahead_time > 0.2) || (servoj_lookahead_time < 0.03))
   {
     ROS_ERROR_STREAM("servoj_lookahead_time is " << servoj_lookahead_time << ", must be in range [0.03, 0.2]");
