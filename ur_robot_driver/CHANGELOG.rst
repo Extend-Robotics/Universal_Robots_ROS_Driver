@@ -1,3 +1,34 @@
+2.4.1 (2025-05-20)
+------------------
+* Fix minimum required polyscope version in the output (`#751 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/751>`_)
+  When we raised the version requirements to 3.14/5.9 we didn't update the
+  output in the ROS driver.
+* Contributors: Felix Exner
+
+2.4.0 (2025-05-13)
+------------------
+* Add support for UR15 (`#747 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/747>`_)
+* Contributors: Felix Exner
+
+2.3.0 (2025-04-17)
+------------------
+* Add ROS param (robot_receive_timeout) to control reverse interface timeouts (`#745 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/745>`_)
+* Add launchfiles for ur7e and ur12e (`#743 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/743>`_)
+* Add support for ur7e and ur12e (`#742 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/742>`_)
+* Contributors: Felix Exner, cambel
+
+2.2.0 (2025-02-24)
+------------------
+* Allow setting the speed slider fraction to 0.0 from service (`#738 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/738>`_)
+* Update package maintainers (`#735 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/735>`_)
+* Parse the rx and tx idle chars as floats (`#729 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/729>`_)
+* Add a set_analog_output service (`#714 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/714>`_)
+* set receive timeout after connecting the client (`#596 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/596>`_)
+* Implemented get version service (`#695 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/695>`_)
+* Specify velocities for trajectory forwarding test (`#721 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/721>`_)
+* Updated the UR family photo on the readme (`#713 <https://github.com/UniversalRobots/Universal_Robots_ROS_Driver/issues/713>`_)
+* Contributors: Felix Exner, Rune Søe-Knudsen, URJala, steffen-roperobotics
+
 2.1.5 (2024-06-17)
 ------------------
 

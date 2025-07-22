@@ -3,7 +3,7 @@
 # Universal_Robots_ROS_Driver
 Universal Robots have become a dominant supplier of lightweight, robotic manipulators for industry, as well as for scientific research and education. The Robot Operating System (ROS) has developed from a community-centered movement to a mature framework and quasi standard, providing a rich set of powerful tools for robot engineers and researchers, working in many different domains.
 
-<center><img src="ur_robot_driver/doc/initial_setup_images/e-Series.jpg" alt="Universal Robot e-Series family" style="width: 80%;"/></center>
+<div align="center"><img src="ur_robot_driver/doc/initial_setup_images/family_photo.png" alt="Universal Robot e-Series family" style="width: 90%;"/></div>
 
 With the release of UR’s new e-Series, the demand for a ROS driver that supports the new manipulators and the newest ROS releases and paradigms like ROS-control has increased further. The goal of this driver is to provide a stable and sustainable interface between UR robots and ROS that strongly benefit all parties.
 
@@ -23,14 +23,14 @@ Developed in collaboration between:
 -->
 
 <a href="http://rosin-project.eu">
-  <img src="http://rosin-project.eu/wp-content/uploads/rosin_ack_logo_wide.png" 
+  <img src="https://raw.githubusercontent.com/rosin-project/press_kit/master/img/rosin_ack_logo_wide.png" 
        alt="rosin_logo" height="60" >
 </a>
 
 Supported by ROSIN - ROS-Industrial Quality-Assured Robot Software Components.  
 More information: <a href="http://rosin-project.eu">rosin-project.eu</a>
 
-<img src="http://rosin-project.eu/wp-content/uploads/rosin_eu_flag.jpg" 
+<img src="https://raw.githubusercontent.com/rosin-project/press_kit/master/img/rosin_eu_flag.jpg" 
      alt="eu_flag" height="45" align="left" >  
 
 This project has received funding from the European Union’s Horizon 2020  
@@ -103,7 +103,7 @@ noetic. If you want to use a UR robot arm with ROS 2, please see the
 [ROS 2 driver](https://github.com/UniversalRobots/Universal_Robots_ROS2_Driver/).
 2. Install the driver using
 ```bash
-sudo apt install ros-${ROS_DISTRO}-ur-robot-driver
+sudo apt install ros-${ROS_DISTRO}-ur-robot-driver ros-${ROS_DISTRO}-ur-calibration
 ```
 ## Building from source
 
@@ -125,11 +125,16 @@ $ mkdir -p catkin_ws/src && cd catkin_ws
 # clone the driver
 $ git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
 
-# clone the description. Currently, it is necessary to use the melodic-devel branch.
-$ git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
+# Install vcstool
+$ sudo apt update -qq
+$ sudo apt install python3-vcstool
+
+# clone the direct dependencies. As the latest version might require the latest upstream version,
+# we'll build things from source. Note: This does not include the client library. If there are API
+# changes there, you might have to use the all-source build as explained below.
+$ vcs import --input src/Universal_Robots_ROS_Driver/.noetic.rosinstall src
 
 # install dependencies
-$ sudo apt update -qq
 $ rosdep update
 $ rosdep install --from-paths src --ignore-src -y
 
@@ -149,9 +154,10 @@ build`](https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html).
 $ source /opt/ros/<your_ros_version>/setup.bash
 $ mkdir -p catkin_ws/src && cd catkin_ws
 $ git clone https://github.com/UniversalRobots/Universal_Robots_Client_Library.git src/Universal_Robots_Client_Library
-$ git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
-$ git clone -b melodic-devel https://github.com/ros-industrial/universal_robot.git src/universal_robot
 $ sudo apt update -qq
+$ sudo apt install python3-vcstool
+$ vcs import --input src/Universal_Robots_ROS_Driver/.noetic.rosinstall src
+$ git clone https://github.com/UniversalRobots/Universal_Robots_ROS_Driver.git src/Universal_Robots_ROS_Driver
 $ rosdep update
 $ rosdep install --from-paths src --ignore-src -y
 $ catkin_make_isolated
@@ -203,7 +209,7 @@ To actually start the robot driver use one of the existing launch files
 
     $ roslaunch ur_robot_driver <robot_type>_bringup.launch robot_ip:=192.168.56.101
 
-where **<robot_type>** is one of *ur3, ur5, ur10, ur3e, ur5e, ur10e, ur16e, ur20, ur30*. Note that in this example we
+where **<robot_type>** is one of *ur3, ur5, ur10, ur3e, ur5e, ur7e, ur10e, ur12e, ur16e, ur15, ur20, ur30*. Note that in this example we
 load the calibration parameters for the robot "ur10_example".
 
 If you calibrated your robot before, pass that calibration to the launch file:
