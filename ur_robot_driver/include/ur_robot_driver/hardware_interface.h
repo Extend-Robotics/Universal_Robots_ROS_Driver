@@ -51,9 +51,11 @@
 #include <ur_client_library/control/trajectory_point_interface.h>
 #include <ur_msgs/IOStates.h>
 #include <ur_msgs/ToolDataMsg.h>
+#include <ur_msgs/SetAnalogOutput.h>
 #include <ur_msgs/SetIO.h>
 #include <ur_msgs/SetSpeedSliderFraction.h>
 #include <ur_msgs/SetPayload.h>
+#include <ur_msgs/GetRobotSoftwareVersion.h>
 
 #include <cartesian_interface/cartesian_command_interface.h>
 #include <cartesian_interface/cartesian_state_handle.h>
@@ -62,6 +64,7 @@
 #include <scaled_joint_trajectory_controller/scaled_joint_command_interface.h>
 
 #include <ur_client_library/ur/ur_driver.h>
+#include <ur_client_library/ur/robot_receive_timeout.h>
 #include <ur_robot_driver/dashboard_client_ros.h>
 
 #include <ur_dashboard_msgs/RobotMode.h>
@@ -210,11 +213,14 @@ protected:
 
   bool setSpeedSlider(ur_msgs::SetSpeedSliderFractionRequest& req, ur_msgs::SetSpeedSliderFractionResponse& res);
   bool setIO(ur_msgs::SetIORequest& req, ur_msgs::SetIOResponse& res);
+  bool setAnalogOutput(ur_msgs::SetAnalogOutputRequest& req, ur_msgs::SetAnalogOutputResponse& res);
   bool resendRobotProgram(std_srvs::TriggerRequest& req, std_srvs::TriggerResponse& res);
   bool zeroFTSensor(std_srvs::TriggerRequest& req, std_srvs::TriggerResponse& res);
   void commandCallback(const std_msgs::StringConstPtr& msg);
   bool setPayload(ur_msgs::SetPayloadRequest& req, ur_msgs::SetPayloadResponse& res);
   bool activateSplineInterpolation(std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res);
+  bool getRobotSoftwareVersion(ur_msgs::GetRobotSoftwareVersionRequest& req,
+                               ur_msgs::GetRobotSoftwareVersionResponse& res);
 
   std::unique_ptr<urcl::UrDriver> ur_driver_;
   std::unique_ptr<DashboardClientROS> dashboard_client_;
@@ -239,6 +245,7 @@ protected:
   ros::ServiceServer tare_sensor_srv_;
   ros::ServiceServer set_payload_srv_;
   ros::ServiceServer activate_spline_interpolation_srv_;
+  ros::ServiceServer get_robot_software_version_srv;
 
   hardware_interface::JointStateInterface js_interface_;
   scaled_controllers::ScaledPositionJointInterface spj_interface_;
@@ -315,6 +322,7 @@ protected:
 
   ros::ServiceServer set_speed_slider_srv_;
   ros::ServiceServer set_io_srv_;
+  ros::ServiceServer set_analog_output_srv_;
   ros::ServiceServer resend_robot_program_srv_;
   ros::Subscriber command_sub_;
 
@@ -345,6 +353,7 @@ protected:
 
   std::string robot_ip_;
   std::string tf_prefix_;
+  urcl::RobotReceiveTimeout robot_receive_timeout_ = urcl::RobotReceiveTimeout::millisec(20);
 };
 
 }  // namespace ur_driver
